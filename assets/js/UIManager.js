@@ -22,7 +22,7 @@ class UIManager {
     // Vider le conteneur avant d'ajouter de nouveaux éléments
     container.innerHTML = "";
 
-    const fragment = document.createDocumentFragment();
+    //const fragment = document.createDocumentFragment();
 
     movies.forEach((movie) => {
       const clone = template.content.cloneNode(true);
@@ -37,10 +37,9 @@ class UIManager {
       title.textContent = movie.title || "Titre inconnu";
       button.dataset.url = movie.url || "#";
 
-      fragment.appendChild(clone);
+      container.appendChild(clone);
     });
 
-    container.appendChild(fragment);
   }
 
   // Récupération des films pour le genre sélectionné
@@ -92,16 +91,15 @@ class UIManager {
     document.getElementById("modal-secondary-image").alt = movie.title;
   
     // Mettez à jour les informations principales
+    document.getElementById("modal-info").innerHTML = `<strong>${movie.year} - ${movie.genres.join(', ')}</strong>`;
     document.getElementById("modal-rating").textContent = `${movie.rated} - ${movie.duration} minutes (${movie.countries? `Pays : ${movie.countries.join(', ')}`
       : 'Pays non disponibles'})`;
     document.getElementById("modal-score").textContent = `IMDB score: ${movie.imdb_score}/10`;
-  
-    // Mettez à jour l'image secondaire
+
   
     // Mettez à jour la description et les autres détails
     document.getElementById("modal-directors").innerHTML = `<strong>Réalisé par:</strong> ${movie.directors.join(', ')}`;
     document.getElementById("modal-summary").textContent = movie.description;
-   // document.getElementById("modal-cast").innerHTML = `<strong>Avec:</strong> ${movie.cast.join(', ')}`;
   }
   
   checkWindowSize() {
@@ -141,15 +139,15 @@ class UIManager {
           for (let i = totalCols - 4; i < totalCols; i++) {
             if (i >= 0) cols[i].classList.add("phone-hide");
           }
-          if (loadMoreBtn) loadMoreBtn.classList.remove("d-none"); // Afficher le bouton Load More
+          if (loadMoreBtn) loadMoreBtn.classList.remove("d-none");
         } else {
           // Desktop : tout afficher (pas de colonnes cachées)
           cols.forEach((col) => {
-            col.style.display = ""; // Supprimer les styles inline, si présents
+            col.style.display = "";
           });
 
-          if (loadMoreBtn) loadMoreBtn.classList.add("d-none"); // Cacher le bouton Load More
-          if (loadLessBtn) loadLessBtn.classList.add("d-none"); // Cacher le bouton Load Less
+          if (loadMoreBtn) loadMoreBtn.classList.add("d-none");
+          if (loadLessBtn) loadLessBtn.classList.add("d-none");
         }
       });
     });

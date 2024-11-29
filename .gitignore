@@ -1,8 +1,9 @@
+# Ignore Node.js modules
+node_modules/
+
 # Ignore Python cache files
 __pycache__/
 *.pyc
 
-# Ignore vs code files
-.idea
-
-
+# Ignore IDE settings
+.idea/

@@ -5,10 +5,13 @@ class APIClient {
     {
         this.uimanager = new UIManager()
     }
+    const BASE_URL = "http://localhost:8000/api/v1/titles/";
+
+    //Fetch best movie all genres combined
    async fetchBestMovie() {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/v1/titles/?sort_by=-imdb_score,-votes`
+        `${BASE_URL}?sort_by=-imdb_score,-votes`
       );
 
       if (!response.ok) {
@@ -40,10 +43,12 @@ class APIClient {
       return null;
     }
   }
+
+  //fetch best movies of a specific genre filtered by imdb score and votes
    async fetchBestMovieOfGenre(genre, container_id) {
     try {
       let response = await fetch(
-        `http://localhost:8000/api/v1/titles/?genre=${genre}&sort_by=-imdb_score,-votes`
+        `${BASE_URL}?genre=${genre}&sort_by=-imdb_score,-votes`
       );
 
       if (!response.ok) {
@@ -52,6 +57,7 @@ class APIClient {
       }
 
       let json = await response.json();
+      console.log("Slected genre" + genre)
       console.log("Initial count:", json.results.length);
 
       // Ensure we have at least 6 movies
@@ -72,7 +78,7 @@ class APIClient {
       console.log("Final count:", json.results.length);
 
       if (json && json.results && json.results.length > 0) {
-        const movies = json.results.slice(0, 6); // Take the first 6 movies
+        const movies = json.results.slice(0, 6);
         this.uimanager.updateBestMovieGenreSection(movies, container_id);
         return movies;
       }
@@ -81,14 +87,15 @@ class APIClient {
       return null;
     }
   }
+
+  //Fetch all genres
    async fetchGenres() {
-    let allResults = []; // Liste pour stocker tous les genres récupérés
-    let currentPage = 1; // Débuter à la première page
+    let allResults = [];
+    let currentPage = 1;
     const baseUrl = `http://localhost:8000/api/v1/genres`;
 
     try {
       while (true) {
-        // Construire l'URL de la page actuelle
         const url = `${baseUrl}/?page=${currentPage}`;
         const response = await fetch(url);
 
@@ -98,17 +105,14 @@ class APIClient {
 
         const json = await response.json();
 
-        // Ajouter les résultats de cette page à la liste globale
         if (json && json.results) {
           allResults = allResults.concat(json.results);
         }
 
-        // Vérifier si une page suivante existe
         if (!json.next) {
-          break; // Sortir de la boucle si pas de page suivante
+          break;
         }
 
-        // Passer à la page suivante
         currentPage++;
       }
 
@@ -120,6 +124,8 @@ class APIClient {
       return null;
     }
   }
+
+  //Fetch a movie details
 
    async fetchBestMovieDetails(movie_url) {
     try {
