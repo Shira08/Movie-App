@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <template id="movie-card-template">
+      <div class="col-lg-4 py-4  col-md-6 col-sm-12 ">
+        <div class="image-container position-relative">
+          <img src="https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw%40%40.%5FV1%5FUX182%5FCR0%2C0%2C182%2C268%5FAL%5F.jpg " alt="Movie Title" class="shadow img-fluid w-100  fixed-image-size" />
+          <div class="overlay position-absolute bottom-0 start-0 w-100  px-3 py-2">
+            <h2 class="title text-white fs-5 mb-0">Movie Title</h2>
+            <button
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
+              class="btn btn-dark fw-bold rounded-pill float-end  best-movie-details px-3 py-1 "
+              onclick="handleDetailsClick(this)"
+            >
+              Détails
+            </button>
+          </div>
+        </div>
+      </div>
+   
+    </template>
+
+    <div class="global-div container p-5">
+      <nav class="navbar navbar-expand-lg p-2 border border-secondary">
+        <div class="container-fluid">
+          <a class="navbar-brand me-5" href="#"
+            ><img src="assets/img/logo.png" class="img-fluid" alt
+          /></a>
+
+          <div class="collapse navbar-collapse d-none" id="navbarNavDropdown">
+            <h1 class="fw-light text-white">Vidéos à la demande</h1>
+          </div>
+        </div>
+      </nav>
+
+      <div class="container-fluid p-0">
+        <h1 class="fw-bolder best-movie-title mt-5">Meilleur Film</h1>
+        <div class="best-movie-body border border-dark border-2 h-50 h-sm-100 w-sm-100">
+          <div class="row">
+            <div class="col-lg-3 best-movie-container col-md-5 col-sm-12  d-flex justify-content-center ">
+              <img
+                class="img-fluid w-auto h-100"
+                src="https://img.freepik.com/photos-gratuite/bandes-negatives-clap-bobines-film-billets-pop-corn-bureau-bois_23-2148188185.jpg?t=st=1731438465~exp=1731442065~hmac=e2526ad2ef2699f3fbcd01e01f94fe2858e39808af757d324f6819023407d00d&w=740"
+                alt
+                id="best-movie-image"
+              />
+            </div>
+            <div class="col-lg-9 col-md-7 col-sm-12 px-md-5 px-sm-3 py-3">
+              <h1 class>Gladiator</h1>
+              <p class="fw-light  fs-4" id="best-movie-description">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas
+                quia, error quasi quibusdam aliquam nesciunt distinctio deserunt
+                fuga voluptates ad quisquam commodi libero, numquam natus
+                laborum illo adipisci. Earum, autem.
+              </p>
+
+              <button
+                type="button"
+                class="btn btn-danger rounded-pill px-3 float-end best-movie-details"
+                id="best-movie-details"
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop"
+              >
+                Détails
+              </button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="best-movies-genre-comedy" id="movies-container">
+            <h1 class="fw-bold best-movie-title mt-5">Comedy</h1>
+            <div
+              class="row d-flex justify-content-between align-items-center "
+            >
+            
+          </div>
+          <button class="load-more-btn btn btn-primary d-none">Load More</button>
+            <button class="load-less-btn btn btn-secondary d-none">Load Less</button>
+          </div>
+          <div class="best-movies-genre-animation" id="movies-container">
+            <h1 class="fw-bold best-movie-title mt-5">Crime</h1>
+            <div
+              class="row d-flex justify-content-between align-items-center"
+            >
+          </div>
+          <button class="load-more-btn btn btn-primary d-none">Load More</button>
+          <button class="load-less-btn btn btn-secondary d-none">Load Less</button>
+          </div>
+            <form class="col-4">
+
+             <h1 class="fw-bold best-movie-title mt-5">Autres :</h1> <select
+                class="form-select"
+                aria-label="Default select example"
+                id="genresList"
+                onClick="fetchMoviesOfSelectedGenre()"
+              >
+                <option selected>Open this select menu</option>
+              </select>
+            </form>
+          <div class="best-movies-selected-genre" id="movies-container">
+
+              <div
+                class="row d-flex justify-content-between align-items-center"
+              ></div>
+              <button class="load-more-btn btn btn-primary d-none">Load More</button>
+              <button class="load-less-btn btn btn-secondary d-none">Load Less</button>
+          </div>
+        </div>
+      </div>
+    </div> 
+      
+  </div>
+
+    <!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md" id="modal-dialog">
+    <div class="modal-content  border border-dark border-2" id="modal-content">
+
+      <div class="modal-body" id="modal-body">
+        <div class="row d-flex justify-content-between" id="modal-row">
+          <div class="col-md-8" id="modal-left-column">
+            <h2 class="modal-title mb-3" id="staticBackdropLabel">The Big Lebowski</h2>
+
+            <p id="modal-info"><strong>1998 - Comedy, Crime, Sport</strong></p>
+            <p id="modal-rating"><strong>PG-13 - 117 minutes (USA/UK)</strong></p>
+            <p id="modal-score"><strong>IMDB score:</strong> 8.1/10</p>
+              <p id="modal-directors">
+              <strong>Réalisé par:</strong> Joel Cohen, Ethan Cohen
+            </p>
+          </div>
+          <div class="col-md-4 " id="modal-right-column">
+            <img src alt="Image" class="img-fluid"  class="img-fluid float-end  w-auto" id="modal-secondary-image"/>
+          </div>
+
+          <!-- Colonne droite : Description du film -->
+          <div class="col-md-12" id="modal-description-column">
+
+            <p id="modal-summary">
+              When "The Dude" Lebowski is mistaken for a millionaire Lebowski,
+              two thugs urinate on his rug to coerce him into paying a debt he
+              knows nothing about. While attempting to gain recompense for the
+              ruined rug from his wealthy counterpart, he accepts a one-time
+              job with high pay-off. He enlists the help of his bowling buddy,
+              Walter, a gun-toting Jewish-convert with anger issues. Deception
+              leads to more trouble, and it soon seems that everyone from porn
+              empire tycoons to nihilists want something from The Dude.
+            </p>
+            <p id="modal-cast">
+              <strong>Avec:</strong> David Huddleston, Flea, Jack Kehler, Jeff
+              Bridges, Jimmie Dale Gilmore, John Goodman, John Turturro,
+              Julianne Moore, Mark Pellegrino, Peter Stormare, Philip Moon,
+              Philip Seymour Hoffman, Steve Buscemi, Tara Reid, Torsten Voges
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pied de page de la modale -->
+      <div class="modal-footer border border-0 d-flex justify-content-center " id="modal-footer">
+        <button
+          type="button"
+          class="btn btn-danger rounded-pill px-5 "
+          data-bs-dismiss="modal"
+          id="modal-close-footer-button"
+        >
+          Fermer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <script type=""  src="assets/js/index.js"></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
