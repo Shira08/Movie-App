@@ -28,9 +28,9 @@ python3 manage.py runserver
 ```
 https://github.com/Shira08/Movie-App.git
 ```
-5- Open the application in vs code and install the extenxion live server
+6- Open the application in vs code and install the extenxion live server
 
-6- Open the index.html in the browser using a live server
+7- Open the index.html in the browser using a live server
 
 
 
