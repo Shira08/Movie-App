@@ -24,7 +24,13 @@ pip install -r requirements.txt
 ```
 python3 manage.py runserver
 ```
-5- Open the index.html in the browser
+5- Clone this application
+```
+https://github.com/Shira08/Movie-App.git
+```
+5- Open the application in vs code and install the extenxion live server
+
+6- Open the index.html in the browser using a live server
 
 
 
